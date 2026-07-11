@@ -1,0 +1,194 @@
+{{ 'component-custom-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign logo_image = section.settings.logo_image
+  assign site_name = section.settings.site_name | default: shop.name
+  assign tagline = section.settings.tagline
+  assign btn_label = section.settings.button_label
+  assign btn_link = section.settings.button_link
+-%}
+
+<header class="cheader color-{{ section.settings.color_scheme }}"
+        data-cheader
+        id="CustomHeader-{{ section.id }}"
+        style="
+          --cheader-bg: {{ section.settings.background_color }};
+          --cheader-text: {{ section.settings.text_color }};
+          --cheader-btn-bg: {{ section.settings.button_bg_color }};
+          --cheader-btn-text: {{ section.settings.button_text_color }};
+          --cheader-logo-width: {{ section.settings.logo_width }}px;
+        ">
+  <div class="cheader__row page-width">
+
+    <div class="cheader__left">
+      <button type="button"
+              class="cheader__toggle"
+              data-cheader-toggle
+              aria-expanded="false"
+              aria-controls="CustomHeaderPanel-{{ section.id }}"
+              aria-label="Toggle menu">
+        <span class="cheader__icon cheader__icon--menu">
+          <svg viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="1" y1="1" x2="17" y2="1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="1" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="1" y1="15" x2="17" y2="15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="cheader__icon cheader__icon--close">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </button>
+
+      <a href="{{ routes.root_url }}" class="cheader__logo-link">
+        {%- if logo_image -%}
+          <img
+            src="{{ logo_image | image_url: width: 600 }}"
+            alt="{{ site_name | escape }}"
+            width="{{ logo_image.width }}"
+            height="{{ logo_image.height }}"
+            class="cheader__logo-image"
+            loading="eager"
+          >
+        {%- else -%}
+          <span class="cheader__site-name">{{ site_name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <div class="cheader__center">
+      {%- if tagline != blank -%}
+        <p class="cheader__tagline">{{ tagline }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="cheader__right">
+      {%- if btn_label != blank -%}
+        <a href="{{ btn_link | default: '#' }}" class="cheader__button">
+          <span>{{ btn_label }}</span>
+          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  <div class="cheader__panel" id="CustomHeaderPanel-{{ section.id }}" data-cheader-panel>
+    <div class="cheader__panel-inner">
+      {%- if tagline != blank -%}
+        <p class="cheader__tagline cheader__tagline--mobile">{{ tagline }}</p>
+      {%- endif -%}
+      {%- if btn_label != blank -%}
+        <a href="{{ btn_link | default: '#' }}" class="cheader__button cheader__button--mobile">
+          <span>{{ btn_label }}</span>
+          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+<script src="{{ 'component-custom-header.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Custom Header",
+  "tag": "section",
+  "class": "section-custom-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image",
+      "info": "If no logo is uploaded, the site name text below will display instead."
+    },
+    {
+      "type": "text",
+      "id": "site_name",
+      "label": "Site name (fallback text)",
+      "info": "Shown only when no logo image is uploaded. Leave blank to use your store name.",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo image width",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Tagline & Button"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Choose gift"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#F4E727"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Header"
+    }
+  ]
+}
+{% endschema %}
