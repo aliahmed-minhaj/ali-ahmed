@@ -61,15 +61,15 @@
 .cheader__button {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1.8rem;
   background: var(--cheader-btn-bg, #f4e727);
   color: var(--cheader-btn-text, #111);
   text-decoration: none;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.6rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 1.1rem 2rem;
+  padding: 1rem 3rem 1rem 4rem;
   white-space: nowrap;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -80,10 +80,8 @@
 
 .cheader__button svg {
   transition: transform 0.25s ease;
-}
-
-.cheader__button:hover svg {
-  transform: translateX(3px);
+  width: 29px;
+  height: 30px;
 }
 
 /* Mobile toggle button */
