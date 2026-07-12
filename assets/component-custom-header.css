@@ -92,8 +92,8 @@ a.cheader__button:hover::before {
     width: 100%;
 }
 
-.cheader__button:hover svg {
-    fill: #fff !important;
+.cheader__button:hover svg * {
+    fill: #fff;
 }
 
 .cheader__button:hover * {
