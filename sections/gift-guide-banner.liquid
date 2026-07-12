@@ -1,0 +1,362 @@
+{{ 'component-gift-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign btn_label = section.settings.button_label
+  assign btn_link = section.settings.button_link
+  assign bottom_text = section.settings.bottom_bar_text
+  assign image = section.settings.image
+  assign image_mobile = section.settings.image_mobile | default: section.settings.image
+-%}
+
+<section
+  class="gift-banner color-{{ section.settings.color_scheme }}"
+  id="GiftBanner-{{ section.id }}"
+  style="
+    --gb-bg: {{ section.settings.background_color }};
+    --gb-heading-color: {{ section.settings.heading_color }};
+    --gb-subheading-color: {{ section.settings.subheading_color }};
+    --gb-btn-bg: {{ section.settings.button_bg_color }};
+    --gb-btn-text: {{ section.settings.button_text_color }};
+    --gb-bottom-bg: {{ section.settings.bottom_bar_bg_color }};
+    --gb-bottom-text: {{ section.settings.bottom_bar_text_color }};
+    --gb-overlay-color: {{ section.settings.overlay_color }};
+    --gb-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --gb-min-height: {{ section.settings.min_height }}px;
+    --gb-min-height-mobile: {{ section.settings.min_height_mobile }}px;
+    --gb-content-max-width: {{ section.settings.content_max_width }}px;
+  ">
+
+  <!-- Mobile-only heading/subheading, sits above the image -->
+  <div class="gift-banner__content gift-banner__content--mobile-top">
+    {%- if heading != blank -%}
+      <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size_mobile }}px;">
+        {{ heading }}
+      </h2>
+    {%- endif -%}
+    {%- if subheading != blank -%}
+      <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size_mobile }}px;">
+        {{ subheading | newline_to_br }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="gift-banner__media">
+    {%- if image -%}
+      <img
+        class="gift-banner__image gift-banner__image--desktop"
+        src="{{ image | image_url: width: 2000 }}"
+        srcset="{{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1400 }} 1400w, {{ image | image_url: width: 2000 }} 2000w"
+        sizes="100vw"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        alt="{{ image.alt | default: heading | escape }}"
+        loading="lazy"
+      >
+      <img
+        class="gift-banner__image gift-banner__image--mobile"
+        src="{{ image_mobile | image_url: width: 1000 }}"
+        srcset="{{ image_mobile | image_url: width: 600 }} 600w, {{ image_mobile | image_url: width: 1000 }} 1000w"
+        sizes="100vw"
+        width="{{ image_mobile.width }}"
+        height="{{ image_mobile.height }}"
+        alt="{{ image_mobile.alt | default: heading | escape }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div class="gift-banner__image gift-banner__image--placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
+    <div class="gift-banner__overlay"></div>
+
+    <!-- Desktop-only content, overlaid on top of the image -->
+    <div class="gift-banner__content gift-banner__content--desktop gift-banner__content--{{ section.settings.content_position }}">
+      {%- if heading != blank -%}
+        <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size }}px;">
+          {{ heading }}
+        </h2>
+      {%- endif -%}
+      {%- if subheading != blank -%}
+        <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size }}px;">
+          {{ subheading | newline_to_br }}
+        </div>
+      {%- endif -%}
+      {%- if btn_label != blank -%}
+        <a href="{{ btn_link | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size }}px;">
+          <span>{{ btn_label }}</span>
+          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <!-- Mobile-only button, overlaid on the image -->
+    {%- if btn_label != blank -%}
+      <div class="gift-banner__button-wrap gift-banner__button-wrap--mobile">
+        <a href="{{ btn_link | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_mobile }}px;">
+          <span>{{ btn_label }}</span>
+          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if bottom_text != blank -%}
+    <div class="gift-banner__bottom-bar">
+      <p>{{ bottom_text }}</p>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide Banner",
+  "tag": "section",
+  "class": "section-gift-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Banner image (mobile)",
+      "info": "Optional. If left blank, the desktop image will be reused."
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_bar_text",
+      "label": "Bottom bar text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "header",
+      "content": "Desktop font sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 30,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "label": "Subheading font size",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Mobile font sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size_mobile",
+      "label": "Subheading font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "Button font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Desktop text position",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "middle-center", "label": "Middle center" }
+      ],
+      "default": "middle-left"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Desktop text block max width",
+      "min": 300,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Banner min height (desktop)",
+      "min": 300,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "label": "Banner min height (mobile)",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 0,
+      "info": "Adds a tint behind the image to improve text readability."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay tint color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_bg_color",
+      "label": "Bottom bar background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_text_color",
+      "label": "Bottom bar text",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Banner"
+    }
+  ]
+}
+{% endschema %}
