@@ -17,7 +17,7 @@
         "top_image_ratio_w": 16,
         "top_image_ratio_h": 4,
         "bottom_image": "shopify://shop_images/banner_right_bottom_img.jpg",
-        "text_col_width": 45,
+        "text_col_width": 50,
         "split_row_ratio_w": 16,
         "split_row_ratio_h": 4,
         "heading_desktop": "The Gift Guide",
