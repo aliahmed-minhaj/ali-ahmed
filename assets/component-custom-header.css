@@ -72,6 +72,7 @@
   padding: 1rem 3rem 1rem 4rem;
   white-space: nowrap;
   transition: opacity 0.25s ease, transform 0.25s ease;
+  position: relative;
 }
 
 a.cheader__button:before {
