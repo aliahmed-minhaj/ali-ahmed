@@ -188,6 +188,10 @@ a.cheader__button:hover::before {
     width: calc(var(--cheader-logo-width, 150px) * 1.01);
   }
 
+  .cheader__panel-inner{
+    align-items: center;
+  }
+
   .cheader__tagline--mobile,
   .cheader__button--mobile {
     display: inline-flex;
