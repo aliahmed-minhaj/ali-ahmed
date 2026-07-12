@@ -13,6 +13,8 @@
 
   assign heading_mobile = section.settings.heading_mobile
   assign subheading_mobile = section.settings.subheading_mobile
+  assign eyebrow_mobile = section.settings.eyebrow_mobile
+  assign note_mobile = section.settings.note_mobile
   assign btn_label_mobile = section.settings.button_label_mobile
   assign btn_link_mobile = section.settings.button_link_mobile
   assign bottom_text_mobile = section.settings.bottom_bar_text_mobile
@@ -30,6 +32,9 @@
     --gb-bottom-bg: {{ section.settings.bottom_bar_bg_color }};
     --gb-bottom-text: {{ section.settings.bottom_bar_text_color }};
     --gb-text-col-width: {{ section.settings.text_col_width }}%;
+    --gb-top-image-ratio: {{ section.settings.top_image_ratio_w }} / {{ section.settings.top_image_ratio_h }};
+    --gb-split-row-ratio: {{ section.settings.split_row_ratio_w }} / {{ section.settings.split_row_ratio_h }};
+    --gb-mobile-image-ratio: {{ section.settings.mobile_image_ratio_w }} / {{ section.settings.mobile_image_ratio_h }};
   ">
 
   <!-- ================= DESKTOP VERSION ================= -->
@@ -65,10 +70,10 @@
           </div>
         {%- endif -%}
         {%- if btn_label_desktop != blank -%}
-          <a href="{{ btn_link_desktop | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_desktop }}px;">
+          <a href="{{ btn_link_desktop | default: '#' }}" class="gift-banner__button black" style="font-size: {{ section.settings.button_font_size_desktop }}px;">
             <span>{{ btn_label_desktop }}</span>
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+            <svg width="29" height="12" viewBox="0 0 29 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.75 4.77298L6.72657e-08 4.77298L-6.72657e-08 6.27298L0.75 6.27298L0.75 4.77298ZM28.6378 6.05331C28.9307 5.76042 28.9307 5.28555 28.6378 4.99265L23.8649 0.219681C23.572 -0.0732126 23.0971 -0.0732126 22.8042 0.219681C22.5113 0.512574 22.5113 0.987448 22.8042 1.28034L27.0469 5.52298L22.8042 9.76562C22.5113 10.0585 22.5113 10.5334 22.8042 10.8263C23.0971 11.1192 23.572 11.1192 23.8649 10.8263L28.6378 6.05331ZM0.75 6.27298L28.1075 6.27298L28.1075 4.77298L0.75 4.77298L0.75 6.27298Z" fill="currentColor"/>
             </svg>
           </a>
         {%- endif -%}
@@ -102,6 +107,9 @@
   <div class="gift-banner__mobile">
 
     <div class="gift-banner__mobile-top">
+      {%- if eyebrow_mobile != blank -%}
+        <p class="gift-banner__eyebrow">{{ eyebrow_mobile }}</p>
+      {%- endif -%}
       {%- if heading_mobile != blank -%}
         <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size_mobile }}px;">
           {{ heading_mobile }}
@@ -131,15 +139,19 @@
 
       {%- if btn_label_mobile != blank -%}
         <div class="gift-banner__button-wrap gift-banner__button-wrap--mobile">
-          <a href="{{ btn_link_mobile | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_mobile }}px;">
+          <a href="{{ btn_link_mobile | default: '#' }}" class="gift-banner__button black" style="font-size: {{ section.settings.button_font_size_mobile }}px;">
             <span>{{ btn_label_mobile }}</span>
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+            <svg width="29" height="12" viewBox="0 0 29 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.75 4.77298L6.72657e-08 4.77298L-6.72657e-08 6.27298L0.75 6.27298L0.75 4.77298ZM28.6378 6.05331C28.9307 5.76042 28.9307 5.28555 28.6378 4.99265L23.8649 0.219681C23.572 -0.0732126 23.0971 -0.0732126 22.8042 0.219681C22.5113 0.512574 22.5113 0.987448 22.8042 1.28034L27.0469 5.52298L22.8042 9.76562C22.5113 10.0585 22.5113 10.5334 22.8042 10.8263C23.0971 11.1192 23.572 11.1192 23.8649 10.8263L28.6378 6.05331ZM0.75 6.27298L28.1075 6.27298L28.1075 4.77298L0.75 4.77298L0.75 6.27298Z" fill="currentColor"/>
             </svg>
           </a>
         </div>
       {%- endif -%}
     </div>
+
+    {%- if note_mobile != blank -%}
+      <p class="gift-banner__note">{{ note_mobile }}</p>
+    {%- endif -%}
 
     {%- if bottom_text_mobile != blank -%}
       <div class="gift-banner__bottom-bar">
@@ -158,12 +170,31 @@
   "settings": [
     {
       "type": "header",
-      "content": "Desktop images (banner is split into: top image / text / bottom-right image)"
+      "content": "Desktop images (top image / text / bottom-right image)"
     },
     {
       "type": "image_picker",
       "id": "top_image",
       "label": "Top image (full width)"
+    },
+    {
+      "type": "range",
+      "id": "top_image_ratio_w",
+      "label": "Top image aspect ratio — width",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "info": "Works together with the height value below, e.g. 16 / 4.3 ≈ the 1440×390 proportions shown in your reference image."
+    },
+    {
+      "type": "range",
+      "id": "top_image_ratio_h",
+      "label": "Top image aspect ratio — height",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "image_picker",
@@ -179,6 +210,25 @@
       "step": 5,
       "unit": "%",
       "default": 40
+    },
+    {
+      "type": "range",
+      "id": "split_row_ratio_w",
+      "label": "Text/image row aspect ratio — width",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "info": "Controls the height of the bottom row (text column + right image) so it stays proportional at any screen width."
+    },
+    {
+      "type": "range",
+      "id": "split_row_ratio_h",
+      "label": "Text/image row aspect ratio — height",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "header",
@@ -257,8 +307,31 @@
       "label": "Banner image (mobile)"
     },
     {
+      "type": "range",
+      "id": "mobile_image_ratio_w",
+      "label": "Mobile image aspect ratio — width",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_ratio_h",
+      "label": "Mobile image aspect ratio — height",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
+    },
+    {
       "type": "header",
       "content": "Mobile text content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_mobile",
+      "label": "Eyebrow text (optional, shown above heading)"
     },
     {
       "type": "text",
@@ -282,6 +355,11 @@
       "type": "url",
       "id": "button_link_mobile",
       "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "note_mobile",
+      "label": "Small note text (optional, shown below the image/button)"
     },
     {
       "type": "text",

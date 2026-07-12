@@ -1,4 +1,4 @@
-/* Gift Guide Banner - component-gift-banner.css (v2) */
+/* Gift Guide Banner - component-gift-banner.css (v3) */
 
 .gift-banner {
   position: relative;
@@ -10,7 +10,20 @@
   height: 100%;
 }
 
+img {
+  max-width: 100%;
+}
+
 /* ---------- Shared text styles ---------- */
+.gift-banner__eyebrow {
+  margin: 0 0 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gb-subheading-color, #333);
+}
+
 .gift-banner__heading {
   margin: 0 0 1.6rem;
   font-weight: 700;
@@ -24,12 +37,18 @@
   color: var(--gb-subheading-color, #333);
 }
 
+.gift-banner__note {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gb-subheading-color, #333);
+  padding: 1rem 2rem 0;
+  margin: 0;
+}
+
 .gift-banner__button {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  background: var(--gb-btn-bg, #111);
-  color: var(--gb-btn-text, #fff);
+  gap: 1.2rem;
   text-decoration: none;
   font-weight: 600;
   text-transform: uppercase;
@@ -37,6 +56,11 @@
   padding: 1.4rem 2.2rem;
   white-space: nowrap;
   transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.gift-banner__button.black {
+  background: var(--gb-btn-bg, #111);
+  color: var(--gb-btn-text, #fff);
 }
 
 .gift-banner__button:hover {
@@ -68,10 +92,6 @@
   font-weight: 500;
 }
 
-img {
-  max-width: 100%;
-}
-
 /* ==========================================================
    MOBILE VERSION (default / < 750px)
    ========================================================== */
@@ -97,12 +117,16 @@ img {
 
 .gift-banner__mobile-media {
   position: relative;
+  width: 100%;
+  aspect-ratio: var(--gb-mobile-image-ratio, 4 / 5);
+  overflow: hidden;
 }
 
 .gift-banner__mobile-media img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .gift-banner__button-wrap--mobile {
@@ -115,8 +139,8 @@ img {
 
 /* ==========================================================
    DESKTOP VERSION (>= 750px) — 3 parts:
-   1) top image (full width)
-   2) split row: text column | bottom-right image
+   1) top image (full width, fixed aspect ratio)
+   2) split row: text column | bottom-right image (fixed aspect ratio)
    ========================================================== */
 
 @media screen and (min-width: 750px) {
@@ -128,21 +152,39 @@ img {
     display: block;
   }
 
+  .gift-banner__top-image {
+    width: 100%;
+    aspect-ratio: var(--gb-top-image-ratio, 16 / 4);
+    overflow: hidden;
+  }
+
   .gift-banner__top-image img,
   .gift-banner__top-image .gift-banner__placeholder {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   .gift-banner__split-row {
     display: grid;
     grid-template-columns: var(--gb-text-col-width, 40%) 1fr;
-    align-items: center;
+    align-items: stretch;
+    width: 100%;
+    aspect-ratio: var(--gb-split-row-ratio, 16 / 4);
   }
 
   .gift-banner__text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 4rem 5vw;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .gift-banner__image-col {
+    height: 100%;
   }
 
   .gift-banner__image-col img,
