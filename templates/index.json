@@ -9,41 +9,79 @@
  */
 {
   "sections": {
-    "gift_guide_banner_Wm89qi": {
-      "type": "gift-guide-banner",
-      "name": "Gift Guide Banner",
+    "featured_product_fcy7QY": {
+      "type": "featured-product",
+      "blocks": {
+        "text_MyREWB": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_bCbKt8": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_bVCdHb": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_xnttPm": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_zPJ9Vf": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_BFH7Ri": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_cAAxwV": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_MyREWB",
+        "title_bCbKt8",
+        "price_bVCdHb",
+        "variant_picker_xnttPm",
+        "quantity_selector_zPJ9Vf",
+        "buy_buttons_BFH7Ri",
+        "share_cAAxwV"
+      ],
+      "disabled": true,
+      "name": "t:sections.featured-product.presets.name",
       "settings": {
-        "image": "shopify://shop_images/banner.jpg",
-        "image_mobile": "shopify://shop_images/mobile_banner.jpg",
-        "heading": "The Gift Guide",
-        "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "button_label": "Shop now",
-        "button_link": "",
-        "bottom_bar_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
-        "heading_font_size": 70,
-        "subheading_font_size": 16,
-        "button_font_size": 14,
-        "heading_font_size_mobile": 30,
-        "subheading_font_size_mobile": 14,
-        "button_font_size_mobile": 13,
-        "content_position": "bottom-left",
-        "content_max_width": 500,
-        "min_height": 780,
-        "min_height_mobile": 200,
-        "overlay_opacity": 0,
+        "product": "",
         "color_scheme": "",
-        "background_color": "#FFFFFF",
-        "heading_color": "#111111",
-        "subheading_color": "#333333",
-        "overlay_color": "#000000",
-        "button_bg_color": "#111111",
-        "button_text_color": "#FFFFFF",
-        "bottom_bar_bg_color": "#FFFFFF",
-        "bottom_bar_text_color": "#111111"
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
-    "gift_guide_banner_Wm89qi"
+    "featured_product_fcy7QY"
   ]
 }
