@@ -1,5 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "gift_guide_banner_Wm89qi": {
+      "type": "gift-guide-banner",
+      "name": "Gift Guide Banner",
+      "settings": {
+        "image": "shopify://shop_images/banner.jpg",
+        "image_mobile": "shopify://shop_images/mobile_banner.jpg",
+        "heading": "The Gift Guide",
+        "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "button_label": "Shop now",
+        "button_link": "",
+        "bottom_bar_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "heading_font_size": 56,
+        "subheading_font_size": 16,
+        "button_font_size": 14,
+        "heading_font_size_mobile": 32,
+        "subheading_font_size_mobile": 14,
+        "button_font_size_mobile": 13,
+        "content_position": "bottom-left",
+        "content_max_width": 480,
+        "min_height": 780,
+        "min_height_mobile": 200,
+        "overlay_opacity": 0,
+        "color_scheme": "",
+        "background_color": "#FFFFFF",
+        "heading_color": "#111111",
+        "subheading_color": "#333333",
+        "overlay_color": "#000000",
+        "button_bg_color": "#111111",
+        "button_text_color": "#FFFFFF",
+        "bottom_bar_bg_color": "#FFFFFF",
+        "bottom_bar_text_color": "#111111"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -29,33 +71,32 @@
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,12 +104,14 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
       }
     }
   },
   "order": [
+    "gift_guide_banner_Wm89qi",
     "image_banner",
     "featured_collection"
   ]
