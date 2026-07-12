@@ -35,6 +35,7 @@
       "type": "custom-header",
       "name": "Custom Header",
       "settings": {
+        "logo_image": "shopify://shop_images/Logo.png",
         "site_name": "TISSO VISON",
         "logo_width": 150,
         "tagline": "Find the ideal gift for your loved ones.",
