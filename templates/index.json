@@ -9,6 +9,48 @@
  */
 {
   "sections": {
+    "gift_guide_banner_Wmahz6": {
+      "type": "gift-guide-banner",
+      "name": "Gift Banner",
+      "settings": {
+        "top_image": "shopify://shop_images/banner_right_bottom_img.jpg",
+        "top_image_ratio_w": 16,
+        "top_image_ratio_h": 4,
+        "bottom_image": "shopify://shop_images/banner_right_bottom_img.jpg",
+        "text_col_width": 45,
+        "split_row_ratio_w": 16,
+        "split_row_ratio_h": 4,
+        "heading_desktop": "The Gift Guide",
+        "subheading_desktop": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "button_label_desktop": "Shop now",
+        "button_link_desktop": "",
+        "bottom_bar_text_desktop": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "heading_font_size_desktop": 70,
+        "subheading_font_size_desktop": 20,
+        "button_font_size_desktop": 16,
+        "mobile_image": "shopify://shop_images/mobile_banner.jpg",
+        "mobile_image_ratio_w": 4,
+        "mobile_image_ratio_h": 3,
+        "eyebrow_mobile": "",
+        "heading_mobile": "The Gift Guide",
+        "subheading_mobile": "Discover Joy: Your Ultimate Holiday Gift Destination.",
+        "button_label_mobile": "Shop now",
+        "button_link_mobile": "",
+        "note_mobile": "",
+        "bottom_bar_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR",
+        "heading_font_size_mobile": 30,
+        "subheading_font_size_mobile": 16,
+        "button_font_size_mobile": 16,
+        "color_scheme": "",
+        "background_color": "#FFFFFF",
+        "heading_color": "#111111",
+        "subheading_color": "#333333",
+        "button_bg_color": "#111111",
+        "button_text_color": "#FFFFFF",
+        "bottom_bar_bg_color": "#FFFFFF",
+        "bottom_bar_text_color": "#111111"
+      }
+    },
     "rich_text_kEMVBU": {
       "type": "rich-text",
       "blocks": {
@@ -54,6 +96,7 @@
     }
   },
   "order": [
+    "gift_guide_banner_Wmahz6",
     "rich_text_kEMVBU"
   ]
 }
