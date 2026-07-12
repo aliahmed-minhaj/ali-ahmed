@@ -74,8 +74,25 @@
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.cheader__button:hover {
-  opacity: 0.85;
+a.cheader__button:before {
+    background: #000;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    z-index: 0;
+    transition: 0.5s ease;
+}
+a.cheader__button:hover::before {
+    width: 100%;
+}
+
+.cheader__button:hover * {
+  position: relative;
+  z-index: 1;
+  color: var(--cheader-btn-hover-text, #fff);
 }
 
 .cheader__button svg {
