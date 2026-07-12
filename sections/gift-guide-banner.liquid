@@ -1,13 +1,21 @@
 {{ 'component-gift-banner.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign heading = section.settings.heading
-  assign subheading = section.settings.subheading
-  assign btn_label = section.settings.button_label
-  assign btn_link = section.settings.button_link
-  assign bottom_text = section.settings.bottom_bar_text
-  assign image = section.settings.image
-  assign image_mobile = section.settings.image_mobile | default: section.settings.image
+  assign top_image = section.settings.top_image
+  assign bottom_image = section.settings.bottom_image
+  assign mobile_image = section.settings.mobile_image
+
+  assign heading_desktop = section.settings.heading_desktop
+  assign subheading_desktop = section.settings.subheading_desktop
+  assign btn_label_desktop = section.settings.button_label_desktop
+  assign btn_link_desktop = section.settings.button_link_desktop
+  assign bottom_text_desktop = section.settings.bottom_bar_text_desktop
+
+  assign heading_mobile = section.settings.heading_mobile
+  assign subheading_mobile = section.settings.subheading_mobile
+  assign btn_label_mobile = section.settings.button_label_mobile
+  assign btn_link_mobile = section.settings.button_link_mobile
+  assign bottom_text_mobile = section.settings.bottom_bar_text_mobile
 -%}
 
 <section
@@ -21,97 +29,125 @@
     --gb-btn-text: {{ section.settings.button_text_color }};
     --gb-bottom-bg: {{ section.settings.bottom_bar_bg_color }};
     --gb-bottom-text: {{ section.settings.bottom_bar_text_color }};
-    --gb-overlay-color: {{ section.settings.overlay_color }};
-    --gb-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-    --gb-min-height: {{ section.settings.min_height }}px;
-    --gb-min-height-mobile: {{ section.settings.min_height_mobile }}px;
-    --gb-content-max-width: {{ section.settings.content_max_width }}px;
+    --gb-text-col-width: {{ section.settings.text_col_width }}%;
   ">
 
-  <!-- Mobile-only heading/subheading, sits above the image -->
-  <div class="gift-banner__content gift-banner__content--mobile-top">
-    {%- if heading != blank -%}
-      <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size_mobile }}px;">
-        {{ heading }}
-      </h2>
-    {%- endif -%}
-    {%- if subheading != blank -%}
-      <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size_mobile }}px;">
-        {{ subheading | newline_to_br }}
+  <!-- ================= DESKTOP VERSION ================= -->
+  <!-- 3 parts: 1) top image (full width)  2) text column  3) bottom-right image -->
+  <div class="gift-banner__desktop">
+
+    <div class="gift-banner__top-image">
+      {%- if top_image -%}
+        <img
+          src="{{ top_image | image_url: width: 2000 }}"
+          srcset="{{ top_image | image_url: width: 1200 }} 1200w, {{ top_image | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          width="{{ top_image.width }}"
+          height="{{ top_image.height }}"
+          alt="{{ top_image.alt | default: heading_desktop | escape }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="gift-banner__placeholder">{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="gift-banner__split-row">
+      <div class="gift-banner__text-col">
+        {%- if heading_desktop != blank -%}
+          <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size_desktop }}px;">
+            {{ heading_desktop }}
+          </h2>
+        {%- endif -%}
+        {%- if subheading_desktop != blank -%}
+          <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size_desktop }}px;">
+            {{ subheading_desktop | newline_to_br }}
+          </div>
+        {%- endif -%}
+        {%- if btn_label_desktop != blank -%}
+          <a href="{{ btn_link_desktop | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_desktop }}px;">
+            <span>{{ btn_label_desktop }}</span>
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="gift-banner__image-col">
+        {%- if bottom_image -%}
+          <img
+            src="{{ bottom_image | image_url: width: 1400 }}"
+            srcset="{{ bottom_image | image_url: width: 800 }} 800w, {{ bottom_image | image_url: width: 1400 }} 1400w"
+            sizes="(min-width: 750px) 50vw, 100vw"
+            width="{{ bottom_image.width }}"
+            height="{{ bottom_image.height }}"
+            alt="{{ bottom_image.alt | default: heading_desktop | escape }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          <div class="gift-banner__placeholder">{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if bottom_text_desktop != blank -%}
+      <div class="gift-banner__bottom-bar">
+        <p>{{ bottom_text_desktop }}</p>
       </div>
     {%- endif -%}
   </div>
 
-  <div class="gift-banner__media">
-    {%- if image -%}
-      <img
-        class="gift-banner__image gift-banner__image--desktop"
-        src="{{ image | image_url: width: 2000 }}"
-        srcset="{{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1400 }} 1400w, {{ image | image_url: width: 2000 }} 2000w"
-        sizes="100vw"
-        width="{{ image.width }}"
-        height="{{ image.height }}"
-        alt="{{ image.alt | default: heading | escape }}"
-        loading="lazy"
-      >
-      <img
-        class="gift-banner__image gift-banner__image--mobile"
-        src="{{ image_mobile | image_url: width: 1000 }}"
-        srcset="{{ image_mobile | image_url: width: 600 }} 600w, {{ image_mobile | image_url: width: 1000 }} 1000w"
-        sizes="100vw"
-        width="{{ image_mobile.width }}"
-        height="{{ image_mobile.height }}"
-        alt="{{ image_mobile.alt | default: heading | escape }}"
-        loading="lazy"
-      >
-    {%- else -%}
-      <div class="gift-banner__image gift-banner__image--placeholder">
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-      </div>
-    {%- endif -%}
+  <!-- ================= MOBILE VERSION ================= -->
+  <div class="gift-banner__mobile">
 
-    <div class="gift-banner__overlay"></div>
-
-    <!-- Desktop-only content, overlaid on top of the image -->
-    <div class="gift-banner__content gift-banner__content--desktop gift-banner__content--{{ section.settings.content_position }}">
-      {%- if heading != blank -%}
-        <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size }}px;">
-          {{ heading }}
+    <div class="gift-banner__mobile-top">
+      {%- if heading_mobile != blank -%}
+        <h2 class="gift-banner__heading" style="font-size: {{ section.settings.heading_font_size_mobile }}px;">
+          {{ heading_mobile }}
         </h2>
       {%- endif -%}
-      {%- if subheading != blank -%}
-        <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size }}px;">
-          {{ subheading | newline_to_br }}
+      {%- if subheading_mobile != blank -%}
+        <div class="gift-banner__subheading" style="font-size: {{ section.settings.subheading_font_size_mobile }}px;">
+          {{ subheading_mobile | newline_to_br }}
         </div>
-      {%- endif -%}
-      {%- if btn_label != blank -%}
-        <a href="{{ btn_link | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size }}px;">
-          <span>{{ btn_label }}</span>
-          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
-          </svg>
-        </a>
       {%- endif -%}
     </div>
 
-    <!-- Mobile-only button, overlaid on the image -->
-    {%- if btn_label != blank -%}
-      <div class="gift-banner__button-wrap gift-banner__button-wrap--mobile">
-        <a href="{{ btn_link | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_mobile }}px;">
-          <span>{{ btn_label }}</span>
-          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
-          </svg>
-        </a>
+    <div class="gift-banner__mobile-media">
+      {%- if mobile_image -%}
+        <img
+          src="{{ mobile_image | image_url: width: 1000 }}"
+          srcset="{{ mobile_image | image_url: width: 600 }} 600w, {{ mobile_image | image_url: width: 1000 }} 1000w"
+          sizes="100vw"
+          width="{{ mobile_image.width }}"
+          height="{{ mobile_image.height }}"
+          alt="{{ mobile_image.alt | default: heading_mobile | escape }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="gift-banner__placeholder">{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      {%- endif -%}
+
+      {%- if btn_label_mobile != blank -%}
+        <div class="gift-banner__button-wrap gift-banner__button-wrap--mobile">
+          <a href="{{ btn_link_mobile | default: '#' }}" class="gift-banner__button" style="font-size: {{ section.settings.button_font_size_mobile }}px;">
+            <span>{{ btn_label_mobile }}</span>
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15.354 5.354a.5.5 0 000-.708L12.172.464a.5.5 0 10-.708.708L14.793 4.5H0v1h14.793l-3.329 3.328a.5.5 0 00.708.708l3.182-3.182z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if bottom_text_mobile != blank -%}
+      <div class="gift-banner__bottom-bar">
+        <p>{{ bottom_text_mobile }}</p>
       </div>
     {%- endif -%}
   </div>
 
-  {%- if bottom_text != blank -%}
-    <div class="gift-banner__bottom-bar">
-      <p>{{ bottom_text }}</p>
-    </div>
-  {%- endif -%}
 </section>
 
 {% schema %}
@@ -122,49 +158,58 @@
   "settings": [
     {
       "type": "header",
-      "content": "Images"
+      "content": "Desktop images (banner is split into: top image / text / bottom-right image)"
     },
     {
       "type": "image_picker",
-      "id": "image",
-      "label": "Banner image (desktop)"
+      "id": "top_image",
+      "label": "Top image (full width)"
     },
     {
       "type": "image_picker",
-      "id": "image_mobile",
-      "label": "Banner image (mobile)",
-      "info": "Optional. If left blank, the desktop image will be reused."
+      "id": "bottom_image",
+      "label": "Bottom-right image"
+    },
+    {
+      "type": "range",
+      "id": "text_col_width",
+      "label": "Text column width",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "default": 40
     },
     {
       "type": "header",
-      "content": "Text"
+      "content": "Desktop text content"
     },
     {
       "type": "text",
-      "id": "heading",
+      "id": "heading_desktop",
       "label": "Heading",
       "default": "The Gift Guide"
     },
     {
       "type": "textarea",
-      "id": "subheading",
+      "id": "subheading_desktop",
       "label": "Subheading",
       "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
     },
     {
       "type": "text",
-      "id": "button_label",
+      "id": "button_label_desktop",
       "label": "Button label",
       "default": "Shop now"
     },
     {
       "type": "url",
-      "id": "button_link",
+      "id": "button_link_desktop",
       "label": "Button link"
     },
     {
       "type": "text",
-      "id": "bottom_bar_text",
+      "id": "bottom_bar_text_desktop",
       "label": "Bottom bar text",
       "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
     },
@@ -174,7 +219,7 @@
     },
     {
       "type": "range",
-      "id": "heading_font_size",
+      "id": "heading_font_size_desktop",
       "label": "Heading font size",
       "min": 30,
       "max": 70,
@@ -184,7 +229,7 @@
     },
     {
       "type": "range",
-      "id": "subheading_font_size",
+      "id": "subheading_font_size_desktop",
       "label": "Subheading font size",
       "min": 12,
       "max": 26,
@@ -194,13 +239,55 @@
     },
     {
       "type": "range",
-      "id": "button_font_size",
+      "id": "button_font_size_desktop",
       "label": "Button font size",
       "min": 12,
       "max": 22,
       "step": 1,
       "unit": "px",
       "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Mobile image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Banner image (mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Mobile text content"
+    },
+    {
+      "type": "text",
+      "id": "heading_mobile",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_mobile",
+      "label": "Subheading",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "button_label_mobile",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_mobile",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_bar_text_mobile",
+      "label": "Bottom bar text",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
     },
     {
       "type": "header",
@@ -238,64 +325,6 @@
     },
     {
       "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "select",
-      "id": "content_position",
-      "label": "Desktop text position",
-      "options": [
-        { "value": "top-left", "label": "Top left" },
-        { "value": "middle-left", "label": "Middle left" },
-        { "value": "bottom-left", "label": "Bottom left" },
-        { "value": "top-center", "label": "Top center" },
-        { "value": "middle-center", "label": "Middle center" }
-      ],
-      "default": "middle-left"
-    },
-    {
-      "type": "range",
-      "id": "content_max_width",
-      "label": "Desktop text block max width",
-      "min": 300,
-      "max": 700,
-      "step": 20,
-      "unit": "px",
-      "default": 480
-    },
-    {
-      "type": "range",
-      "id": "min_height",
-      "label": "Banner min height (desktop)",
-      "min": 300,
-      "max": 900,
-      "step": 20,
-      "unit": "px",
-      "default": 640
-    },
-    {
-      "type": "range",
-      "id": "min_height_mobile",
-      "label": "Banner min height (mobile)",
-      "min": 200,
-      "max": 600,
-      "step": 20,
-      "unit": "px",
-      "default": 380
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Image overlay opacity",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 0,
-      "info": "Adds a tint behind the image to improve text readability."
-    },
-    {
-      "type": "header",
       "content": "Colors"
     },
     {
@@ -321,12 +350,6 @@
       "id": "subheading_color",
       "label": "Subheading color",
       "default": "#333333"
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay tint color",
-      "default": "#000000"
     },
     {
       "type": "color",
