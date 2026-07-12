@@ -167,7 +167,8 @@ a.cheader__button:hover::before {
 /* ============ Mobile layout ============ */
 @media screen and (max-width: 749px) {
   .cheader__row {
-    padding: 1.2rem 1.6rem;
+      height: 65px !important;
+      padding: 0 1rem !important;
   }
 
   .cheader__toggle {
@@ -184,7 +185,7 @@ a.cheader__button:hover::before {
   }
 
   .cheader__logo-image {
-    width: calc(var(--cheader-logo-width, 150px) * 0.75);
+    width: calc(var(--cheader-logo-width, 150px) * 1.01);
   }
 
   .cheader__tagline--mobile,
@@ -199,6 +200,16 @@ a.cheader__button:hover::before {
   .cheader[data-open="true"] .cheader__panel {
     max-height: 240px;
     opacity: 1;
+  }
+  .cheader__left {
+    width: 100% !important;
+    justify-content: center;
+    position: relative;
+  }
+  .cheader__left .cheader__toggle {
+      position: absolute;
+      left: 0;
+      z-index: 9;
   }
 }
 
